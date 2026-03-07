@@ -53,9 +53,9 @@ policies, either expressed or implied, of the FreeBSD Project.
 
 #include <stdint.h>
 #include "msp.h"
-#include "..\inc\Reflectance.h"
-#include "..\inc\Clock.h"
-#include "..\inc\TExaS.h"
+#include "../inc/Reflectance.h"
+#include "../inc/Clock.h"
+#include "../inc/TExaS.h"
 
 uint8_t Data; // QTRX
 // Test main for section 6.4.3
