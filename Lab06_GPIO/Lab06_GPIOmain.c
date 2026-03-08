@@ -59,7 +59,7 @@ policies, either expressed or implied, of the FreeBSD Project.
 
 uint8_t Data; // QTRX
 // Test main for section 6.4.3
-int Program6_1(void){
+int main(void){ //Program6_1
   Clock_Init48MHz();
   Reflectance_Init(); // your initialization
   TExaS_Init(LOGICANALYZER_P7);
@@ -70,13 +70,13 @@ int Program6_1(void){
 }
 
 int32_t Position; // 332 is right, and -332 is left of center
-int main(void){
+int main2323(void){
   Clock_Init48MHz();
   Reflectance_Init();
   TExaS_Init(LOGICANALYZER_P7);
   while(1){
     Data = Reflectance_Read(1000);
-    Position = Reflectance_Position(Data);
+    //Position = Reflectance_Position(Data);
     Clock_Delay1ms(10);
   }
 }

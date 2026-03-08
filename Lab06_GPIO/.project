@@ -24,6 +24,23 @@
 		<nature>org.eclipse.cdt.core.ccnature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>drivers/Clock.c</name>
+			<type>1</type>
+			<location>/home/sergio/ti-git/inc/Clock.c</location>
+		</link>
+		<link>
+			<name>drivers/Reflectance.c</name>
+			<type>1</type>
+			<location>/home/sergio/ti-git/inc/Reflectance.c</location>
+		</link>
+		<link>
+			<name>drivers/TExaS.c</name>
+			<type>1</type>
+			<location>/home/sergio/ti-git/inc/TExaS.c</location>
+		</link>
+	</linkedResources>
 	<variableList>
 		<variable>
 			<name>ORIGINAL_PROJECT_ROOT</name>

@@ -63,8 +63,27 @@ policies, either expressed or implied, of the FreeBSD Project.
 // Input: none
 // Output: none
 void Reflectance_Init(void){
-    // write this as part of Lab 6
+
+  // Make P5.3 and P9.2 outputs, and set them initially low
+  P5->SEL0 &= ~0x08;
+  P5->SEL1 &= ~0x08;  // P5.3 as GPIO
+  P5->DIR |= 0x08;    // make P5.3 out
+  P5->OUT &= ~0x08; // all EVEN LEDs off
+  P9->SEL0 &= ~0x04;
+  P9->SEL1 &= ~0x04;  // P9.2 as GPIO
+  P9->DIR |= 0x04;    // make P9.2 out
+  P9->OUT &= ~0x04; // all ODD LEDs off
+
+  // Make P7.7-P7.0 inputs
+
+  P7->SEL0 &= ~0xFF;
+  P7->SEL1 &= ~0xFF;  // P7.7-P7.0 as GPIO
+  P7->DIR &= ~0xFF;   // make P7.7-P7.0 in
 }
+
+// Bit-banded addresses
+#define IRLED_EVEN_OUT (*((volatile uint8_t *)(0x4209884C)))
+#define IRLED_ODD_OUT (*((volatile uint8_t *)(0x42099048)))
 
 // ------------Reflectance_Read------------
 // Read the eight sensors
@@ -78,9 +97,21 @@ void Reflectance_Init(void){
 // Output: sensor readings
 // Assumes: Reflectance_Init() has been called
 uint8_t Reflectance_Read(uint32_t time){
-uint8_t result;
-    // write this as part of Lab 6
-  result = 0; // replace this line
+  uint8_t result;
+  IRLED_EVEN_OUT = 1; //  set P5.3 high (turn on LED)
+  IRLED_ODD_OUT = 1; //   set P9.2 high (turn on LED)
+
+  P7 -> DIR = 0xFF;     // make P7.7-P7.0 out
+  P7 -> OUT = 0xFF;     // prime for measurement (high)
+  Clock_Delay1us(10);   // wait 10 us
+
+  P7->DIR = 0x00;       // make P7.7-P7.0 in
+  Clock_Delay1us(time);   // wait 'time' us
+  result = P7 -> IN & 0xFF; // convert P7.7-P7.0 to digital
+
+  IRLED_EVEN_OUT = 0; //  set P5.3 low (turn off LED)
+  IRLED_ODD_OUT = 0; //   set P9.2 low (turn off LED)
+  
   return result;
 }
 
